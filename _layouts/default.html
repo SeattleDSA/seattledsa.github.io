@@ -38,7 +38,7 @@ layout: table_wrappers
                 </nav>
               {% endif %}
             {% endunless %}
-            <div id="main-content" class="page-content" role="main">
+            <main id="main-content" class="page-content" role="main">
               {% if site.heading_anchors != false %}
                 {% include vendor/anchor_headings.html html=content beforeHeading="true" anchorBody="" anchorClass="anchor-heading" %}
               {% else %}
@@ -62,7 +62,7 @@ layout: table_wrappers
 
             
 
-            </div>
+            </main>
           </div>
         </div>
       </div>
