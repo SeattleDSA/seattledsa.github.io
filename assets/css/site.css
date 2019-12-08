@@ -1,6 +1,6 @@
 @import "{{ site.theme }}";
 
-.sidebar {
+.jekyll-sidebar, .jekyll-main {
     position: fixed;
     top: 0;
     bottom: 0;
