@@ -7,4 +7,4 @@ permalink: /
 ---
 
 # Welcome
-This is some content
+This is some content.
