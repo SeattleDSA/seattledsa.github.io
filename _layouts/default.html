@@ -13,7 +13,6 @@ layout: table_wrappers
   <div class="container-fluid">
     <nav class="col-md-2 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
-          
           <ul class="navigation-list">
             {%- assign pages_list = site.html_pages | sort:"nav_order" -%}
             {%- for node in pages_list -%}
@@ -53,53 +52,53 @@ layout: table_wrappers
             {%- endfor -%}
           </ul>
     </div>
-    </nav>
-    <div class="col-md-9 ml-sm-auto col-lg-10 px-4" tabindex="0">
-      <div class="main-content">
-        <div class="page">
-          {% unless page.url == "/" %}
-            {% if page.parent %}
-              <nav class="breadcrumb-nav">
-                <ol class="breadcrumb-nav-list">
-                  {% if page.grand_parent %}
-                    <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.grand_parent }}</a></li>
-                    <li class="breadcrumb-nav-list-item"><a href="{{ second_level_url }}">{{ page.parent }}</a></li>
-                  {% else %}
-                    <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.parent }}</a></li>
-                  {% endif %}
-                  <li class="breadcrumb-nav-list-item"><span>{{ page.title }}</span></li>
-                </ol>
-              </nav>
-            {% endif %}
-          {% endunless %}
-          <div id="main-content" class="page-content" role="main">
-            {% if site.heading_anchors != false %}
-              {% include vendor/anchor_headings.html html=content beforeHeading="true" anchorBody="" anchorClass="anchor-heading" %}
-            {% else %}
-              {{ content }}
-            {% endif %}
-
-          {% if page.has_children == true and page.has_toc != false %}
-            <hr>
-            <h2 class="text-delta">Table of contents</h2>
-            {% assign children_list = site.pages | sort:"nav_order" %}
-            <ul>
-              {% for child in children_list %}
-                {% if child.parent == page.title and child.title != page.title %}
-                <li>
-                  <a href="{{ child.url | absolute_url }}">{{ child.title }}</a>{% if child.summary %} - {{ child.summary }}{% endif %}
-                </li>
+  </nav>
+  <div class="col-md-9 ml-sm-auto col-lg-10 px-4" tabindex="0">
+    <div class="main-content">
+      <div class="page">
+        {% unless page.url == "/" %}
+          {% if page.parent %}
+            <nav class="breadcrumb-nav">
+              <ol class="breadcrumb-nav-list">
+                {% if page.grand_parent %}
+                  <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.grand_parent }}</a></li>
+                  <li class="breadcrumb-nav-list-item"><a href="{{ second_level_url }}">{{ page.parent }}</a></li>
+                {% else %}
+                  <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.parent }}</a></li>
                 {% endif %}
-              {% endfor %}
-            </ul>
+                <li class="breadcrumb-nav-list-item"><span>{{ page.title }}</span></li>
+              </ol>
+            </nav>
+          {% endif %}
+        {% endunless %}
+        <div id="main-content" class="page-content" role="main">
+          {% if site.heading_anchors != false %}
+            {% include vendor/anchor_headings.html html=content beforeHeading="true" anchorBody="" anchorClass="anchor-heading" %}
+          {% else %}
+            {{ content }}
           {% endif %}
 
-          
+        {% if page.has_children == true and page.has_toc != false %}
+          <hr>
+          <h2 class="text-delta">Table of contents</h2>
+          {% assign children_list = site.pages | sort:"nav_order" %}
+          <ul>
+            {% for child in children_list %}
+              {% if child.parent == page.title and child.title != page.title %}
+              <li>
+                <a href="{{ child.url | absolute_url }}">{{ child.title }}</a>{% if child.summary %} - {{ child.summary }}{% endif %}
+              </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
 
-        </div>
+        
+
       </div>
     </div>
   </div>
+</div>
 {% if site.footer_content != nil %}
   <hr>
   <footer role="contentinfo">
