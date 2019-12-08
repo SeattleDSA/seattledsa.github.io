@@ -1,6 +1,9 @@
 <a href="{{ site.url }}{{ site.baseurl }}" class="navbar-brand col-sm-3 col-md-2 mr-0">{% include title.html %}</a>
-<nav role="navigation" aria-label="Main navigation" class="navbar-nav my-2 my-md-0 mr-md-3">
-	<ul class="nav">
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
+<nav role="navigation" aria-label="Main navigation" class="collapse navbar-collapse" id="navbarCollapse">
+	<ul class="navbar-nav">
 	  {%- assign pages_list = site.html_pages | sort:"nav_order" -%}
 	  {%- for node in pages_list -%}
 	    {%- unless node.nav_exclude -%}
