@@ -6,5 +6,5 @@ description: "Basic description."
 permalink: /working-groups
 ---
 
-# Welcome
-This is some content.
+# Working Groups
+This is some Working Group subpage content.
