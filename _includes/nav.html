@@ -1,6 +1,4 @@
-
-
-<ul class="nav navigation-list">
+<ul class="nav flex-column">
   {%- assign pages_list = site.html_pages | sort:"nav_order" -%}
   {%- for node in pages_list -%}
     {%- unless node.nav_exclude -%}
