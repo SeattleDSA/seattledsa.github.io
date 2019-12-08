@@ -13,15 +13,47 @@ layout: table_wrappers
   <div class="container-fluid">
     <nav class="col-md-2 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
-          {% if site.aux_links != nil %}
-            <ul class="list-style-none text-small aux-nav">
-              {% for link in site.aux_links %}
-                <li class="d-inline-block my-0{% unless forloop.last %} mr-2{% endunless %}"><a href="{{ link.last }}">{{ link.first }}</a></li>
-              {% endfor %}
-            </ul>
-          {% endif %}
+          
+          <ul class="navigation-list">
+            {%- assign pages_list = site.html_pages | sort:"nav_order" -%}
+            {%- for node in pages_list -%}
+              {%- unless node.nav_exclude -%}
+                {%- if node.parent == nil -%}
+                  <li class="nav-item navigation-list-item{% if page.url == node.url or page.parent == node.title or page.grand_parent == node.title %} active{% endif %}">
+                    {%- if page.parent == node.title or page.grand_parent == node.title -%}
+                      {%- assign first_level_url = node.url | absolute_url -%}
+                    {%- endif -%}
+                    <a href="{{ node.url | absolute_url }}" class="navigation-list-link{% if page.url == node.url %} active{% endif %}">{{ node.title }}</a>
+                    {%- if node.has_children -%}
+                      {%- assign children_list = site.html_pages | where: "parent", node.title | sort:"nav_order" -%}
+                      <ul class="navigation-list-child-list ">
+                        {%- for child in children_list -%}
+                          <li class="nav-item navigation-list-item {% if page.url == child.url or page.parent == child.title %} active{% endif %}">
+                            {%- if page.url == child.url or page.parent == child.title -%}
+                              {%- assign second_level_url = child.url | absolute_url -%}
+                            {%- endif -%}
+                            <a href="{{ child.url | absolute_url }}" class="navigation-list-link{% if page.url == child.url %} active{% endif %}">{{ child.title }}</a>
+                            {%- if child.has_children -%}
+                                {%- assign grand_children_list = site.html_pages | where: "parent", child.title | sort:"nav_order" -%}
+                                <ul class="navigation-list-child-list">
+                                {%- for grand_child in grand_children_list -%}
+                                  <li class="navigation-list-item {% if page.url == grand_child.url %} active{% endif %}">
+                                    <a href="{{ grand_child.url | absolute_url }}" class="navigation-list-link{% if page.url == grand_child.url %} active{% endif %}">{{ grand_child.title }}</a>
+                                  </li>
+                                {%- endfor -%}
+                              </ul>
+                            {%- endif -%}
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </li>
+                {%- endif -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          </ul>
     </div>
-  </nav>
+    </nav>
     <div class="col-md-9 ml-sm-auto col-lg-10 px-4" tabindex="0">
       <div class="main-content">
         <div class="page">
@@ -62,20 +94,18 @@ layout: table_wrappers
             </ul>
           {% endif %}
 
-          {% if site.footer_content != nil %}
-            <hr>
-            <footer role="contentinfo">
-              <p class="text-small text-grey-dk-000 mb-0">{{ site.footer_content }}</p>
-            </footer>
-          {% endif %}
+          
 
         </div>
       </div>
     </div>
   </div>
-<footer class="site-footer">
-  <p class="text-small text-grey-dk-000 mb-4">This site uses <a href="https://github.com/pmarsceill/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.</p>
-</footer>
+{% if site.footer_content != nil %}
+  <hr>
+  <footer role="contentinfo">
+    <p class="text-small text-grey-dk-000 mb-0">{{ site.footer_content }}</p>
+  </footer>
+{% endif %}
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
